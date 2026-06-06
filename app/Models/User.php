@@ -38,4 +38,13 @@ class User extends Authenticatable
     public function comments():HasMany{
         return $this->hasMany(Comment::class);
     }
+
+    public function projects():HasMany{
+        return $this->hasMany(Project::class);
+    }
+
+    public function tasks():HasMany{
+        return $this->hasMany(Task::class);
+    }
+    
 }
