@@ -18,13 +18,9 @@ class TaskFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' =>fake()->sentence(),
-            'status'=>fake()->randomElement([
-                'pending',
-                'in_progress',
-                'done'
-            ]),
-            'due_date'=>fake()->date(),
+            'title' => fake()->sentence(),
+            'status' => fake()->randomElement(['pending','in_progress','done']),
+            'due_date' => fake()->date(),
         ];
     }
 }

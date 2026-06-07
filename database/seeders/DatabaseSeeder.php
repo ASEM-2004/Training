@@ -19,17 +19,55 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->count(5)->has(
-        Post::factory()->count(3)->has(
-        Comment::factory()->count(4) 
-        )
-        )->create();
+          
+       $users = User::factory()->count(5)->create();
+        $users->each(function ($user) use ($users) {
+        $posts = Post::factory()->count(3)->for($user)->create();
+        $posts->each(function ($post) use ($users) {
+            Comment::factory()->count(4)->create([
+                    'post_id' => $post->id,
+                    'user_id' => $users->random()->id,
+                    ]);
+            });
+        });
 
-        
         User::factory()->count(4)->has(
         Project::factory()->count(3)->has(
-        Task::factory()->count(5)    
-        )    
+        Task::factory()->count(5)->state(function (array $attributes, Project $project) {
+        return ['user_id' => $project->user_id];})
+        )
         )->create();
     }
 }
+
+
+
+
+// User::factory()->count(5)->has(
+        // Post::factory()->count(3)->has(
+        // Comment::factory()->count(4)->state(function (array $attributes, Post $post) {
+        //     return [
+        //     'user_id' =>User::inRandomOrder()->first()->id,
+        //     ];
+        //     })
+        // )
+        // )->create();
+
+
+// User::factory()->count(5)->has(
+        // Post::factory()->count(3)->has(
+        // Comment::factory()->count(4)
+        // )
+        // )->create();
+
+
+// $users = User::factory()->count(5)->create();
+        // User::factory()->count(5)->has(
+        // Post::factory()->count(3)->has(
+        // Comment::factory()->count(4)->state(function (array $attributes) use ($users) {
+        //     return [
+        //         'user_id' => $users->random()->id,
+        //         ];
+        //         })
+        // )
+        // )->create();
