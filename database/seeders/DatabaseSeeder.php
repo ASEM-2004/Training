@@ -20,15 +20,15 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        $users = User::factory()->count(5)->create();
-                foreach ($users as $user) {
-        $posts = Post::factory()->count(3)->for($user)->create();
-                foreach ($posts as $post) {
-        Comment::factory()->count(4)->create([
-                'post_id' => $post->id,
-                'user_id' => $users->random()->id,
-        ]);
-        }}
+        // $users = User::factory()->count(5)->create();
+        //         foreach ($users as $user) {
+        // $posts = Post::factory()->count(3)->for($user)->create();
+        //         foreach ($posts as $post) {
+        // Comment::factory()->count(4)->create([
+        //         'post_id' => $post->id,
+        //         'user_id' => $users->random()->id,
+        // ]);
+        // }}
 
         User::factory()->count(4)->has(
         Project::factory()->count(3)->has(

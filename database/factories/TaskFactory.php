@@ -20,7 +20,7 @@ class TaskFactory extends Factory
         return [
             'title' => fake()->sentence(),
             'status' => fake()->randomElement(['pending','in_progress','done']),
-            'due_date' => fake()->date(),
+            'due_date' => fake()->date()
         ];
     }
 }
